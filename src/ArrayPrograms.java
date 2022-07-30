@@ -16,6 +16,7 @@ public class ArrayPrograms {
         Integer[] arr3 = new Integer[]{1,2,3,4,5,1,2,3,4,5,5,3,3,3,3,4,4,4,4,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1};
         List<Integer> numArray =  Arrays.asList(arr3);
 
+        Integer[] arrNumbs = {1,2,3,4,5,6,7,8,9,10};
         String str = "Hello";
 
         //Functional Interface - inbuilt
@@ -50,6 +51,20 @@ public class ArrayPrograms {
         mapAge(users);
         sortAndFilter(users);
         countInt(numArray);
+        getLargestNumber(arrNumbs);
+    }
+
+
+    static  void getLargestNumber(Integer[] arr1){
+        List<Integer> list = Arrays.asList(arr1);
+        /*List<Integer> largeNumbers = list.stream().map(x -> x*5)
+                .filter(i -> i > 20).collect(Collectors.toList());*/
+
+        List<Integer> largeNumbers = list.stream()
+                .filter(i -> i*5>20)
+                .collect(Collectors.toList());
+        System.out.println("Numbers greater than 20" +largeNumbers);
+
     }
 
     static void sortArray(int[] arr1, String[] arr2) {
