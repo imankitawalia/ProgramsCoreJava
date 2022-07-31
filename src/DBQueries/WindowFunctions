@@ -1,0 +1,5 @@
+ #Window Functions
+  SELECT *, SUM(SALARY) OVER(PARTITION BY Qualification) AS SUMs FROM EmployeeDetails;
+
+  # MAX with CASE
+  SELECT MAX(Case when SALARY > 10000 then SALARY else 10001 end) AS LaxSalary FROM EmployeeDetails;

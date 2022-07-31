@@ -1,0 +1,26 @@
+First, create a new table named employees_audit to keep the changes to the employees table:
+
+CREATE TABLE employees_audit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employeeNumber INT NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    changedat DATETIME DEFAULT NULL,
+    action VARCHAR(50) DEFAULT NULL
+);
+
+Next, create a BEFORE UPDATE trigger that is invoked before a change is made to the employees table.
+
+CREATE TRIGGER before_employee_update
+    BEFORE UPDATE ON employees
+    FOR EACH ROW
+ INSERT INTO employees_audit
+ SET action = 'update',
+     employeeNumber = OLD.employeeNumber,
+     lastname = OLD.lastname,
+     changedat = NOW();
+
+Inside the body of the trigger, we used the OLD keyword to access values of the columns employeeNumber and lastname of the row affected by the trigger.
+
+Then, show all triggers in the current database by using the SHOW TRIGGERS statement:
+
+SHOW TRIGGERS;

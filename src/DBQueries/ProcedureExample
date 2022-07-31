@@ -1,0 +1,25 @@
+syntax
+
+CREATE PROCEDURE procedure_name
+AS
+sql_statement
+GO;
+
+EXEC procedure_name;
+
+-----------------------
+CREATE PROCEDURE P1
+As
+SELECT COUNT(Distinct Qualification)  FROM EmployeeDetails
+GO;
+
+EXEC P1;
+
+
+----------------------------
+CREATE PROCEDURE P2 @sal int
+As
+SELECT * FROM EmployeeDetails WHERE Salary > @sal
+GO
+
+EXEC P2 @sal =10000;
