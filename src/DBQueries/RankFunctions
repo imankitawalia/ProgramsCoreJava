@@ -1,0 +1,57 @@
+SELECT TOP (1000) [EmpID]
+      ,[EmpName]
+      ,[Mobile]
+      ,[PresentAddress]
+      ,[Area]
+      ,[City]
+      ,[Country]
+      ,[Qualification]
+      ,[Email]
+  FROM [SQLSTUDY].[dbo].[EmployeeDetails]
+
+
+  ALTER TABLE EmployeeDetails ADD Salary int ;
+  SELECT * FROM EmployeeDetails;
+
+  UPDATE EmployeeDetails SET Salary = 80000 where EmpID =6;
+
+
+// Get the second highest salary for each department
+
+//The SQL WITH clause was introduced by Oracle in the Oracle 9i release 2 database. The SQL WITH clause allows you to give a sub-query block a name (a process also called sub-query refactoring), which can be referenced in several places within the main SQL query.
+
+
+  The clause is used for defining a temporary relation such that the output of this temporary relation is available and is used by the query that is associated with the WITH clause.
+  Queries that have an associated WITH clause can also be written using nested sub-queries but doing so add more complexity to read/debug the SQL query.
+  WITH clause is not supported by all database system.
+  The name assigned to the sub-query is treated as though it was an inline view or table
+  The SQL WITH clause was introduced by Oracle in the Oracle 9i release 2 database.
+
+
+
+  SELECT EmpID,EmpName,Qualification,Salary,
+  DENSE_RANK() OVER(PARTITION BY Qualification ORDER BY SALARY desc) Rankss
+  FROM EmployeeDetails where Rankss =2;
+
+  WITH payroll AS (
+  	SELECT EmpID,EmpName,Qualification,Salary, DENSE_RANK() OVER(PARTITION BY Qualification ORDER BY SALARY desc) Rankss
+    FROM EmployeeDetails
+    )
+
+    SELECT EmpID,EmpName,Qualification,Salary,Rankss from payroll where Rankss=2;
+
+-----------------------------------------------------------------------------------------------
+
+Link - https://www.sqlshack.com/overview-of-sql-rank-functions/#:~:text=A%20quick%20summary%20of%20SQL%20RANK%20Functions%20,number%20of%20rows%20as%20per%20spe%20...%20
+
+    --------------------------------------------------------------------------------------------------------------
+
+    ROW_Number - It assigns the sequential rank number to each unique record.
+
+    RANK - It assigns the rank number to each row in a partition. It skips the number for similar values.
+
+    Dense_RANK - It assigns the rank number to each row in a partition. It does not skip the number for similar values.
+
+    NTILE(N) - It divides the number of rows as per specified partition and assigns unique value in the partition.
+
+    ----------------------------------------------------------------------------------------------------------------
